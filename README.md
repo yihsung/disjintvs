@@ -2,9 +2,9 @@
 
 ### Formats 
 
-* **Format of Intervals:** The format of an interval is`[a,b)` with `a <= b`. Remark that `[a,a)` is valid and it is an *empty set*.
+* **Format of Intervals:** the format of an interval is`[a,b)` with `a <= b`. Remark that `[a,a)` is valid and it is an *empty set*.
 
-* **Format of Commands:** The format of a command consists of three numbers `[z, a, b]`, where `z` is the command: `z=1` means *add* and `z=0` means *remove*; `a, b` represent the interval `[a, b)`. 
+* **Format of Commands:** in order to focus on problem solving, we simplify the input. The format of a command consists of three numbers `[z, a, b]`, where `z` is the command: `z=1` means *add* and `z=0` means *remove*; `a, b` represent the interval `[a, b)`. 
 
 ----
 
