@@ -56,6 +56,7 @@ class DisjIntvs():
 		if 0 < j < n and b < self.intvs[j][0]:
 			j -= 1
 		
+		# new lower and upp bdds
 		a1, b1 = min(self.intvs[i][0], a), max(self.intvs[j][1], b)
 		self.intvs[i:j+1] = [[a1, b1]]
 	
@@ -82,6 +83,7 @@ class DisjIntvs():
 		if 0 < j < n and b < self.intvs[j][0]:
 			j -= 1
 		
+		# possible new lower and upper bounds
 		b1, a1 = min(self.intvs[i][1], a), max(self.intvs[j][0], b)
 
 		# deal with removal in cases
