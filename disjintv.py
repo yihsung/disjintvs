@@ -84,6 +84,7 @@ class DisjIntvs():
 		
 		b1, a1 = min(self.intvs[i][1], a), max(self.intvs[j][0], b)
 
+		# deal with removal in cases
 		if self.intvs[i][0] < b1 and a1 < self.intvs[j][1]:
 			self.intvs[i:j+1] = [[self.intvs[i][0], b1]] + [[a1, self.intvs[j][1]]]
 		elif self.intvs[i][0] < b1:
