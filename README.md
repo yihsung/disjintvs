@@ -25,6 +25,6 @@ There are two classes in `disjintv.py`:
 
 ### Parameters
 
-* `class Operator()`: in `gen_randtest`, `TESTCMDS` is the number of commands in one test batch; `UPPBDD` is the upperbound of the randomly generated intervals.
+* `class Operator()`: in `gen_randtest()`, `TESTCMDS` is the number of commands in one test batch; `UPPBDD` is the upperbound of the randomly generated intervals.
 * `main section`: `ROUNDS` is the round of *random tests*.
 
