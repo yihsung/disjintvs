@@ -1,5 +1,6 @@
 import bisect
 
+
 class DisjIntvs():
 	def __init__(self, intvs=[]):
 		self.intvs = []
@@ -41,7 +42,6 @@ class DisjIntvs():
 		
 		self.intvs[i:j] = temp 
 	
-		#print(self.intvs)
 		print(self.__str__())
 		return
 
@@ -70,7 +70,6 @@ class DisjIntvs():
 
 		self.intvs[i:j] = temp
 
-		#print(self.intvs)
 		print(self.__str__())
 		return
 
@@ -82,10 +81,6 @@ class Operator():
 		self.acts = acts # maintian a set of actions
 
 	
-	def load(self): # load commands from a file
-		return
-
-
 	def run(self):
 		for com, a, b in self.acts:
 			if com: # com=1: add
@@ -95,16 +90,15 @@ class Operator():
 				
 
 	def result(self):
-		print(self.intvs)
+		#print(self.intvs)
 
 		return self.intvs.__str__()
 
 
-# main
+# main section
 if __name__ == '__main__':
 	A = [[1,1,5],[1,6,8],[1,3,5],[1,5,6]]
-	A = [[1,1,8],[0,3,9]]
-	A = [[1,2,5],[0,3,4]]
+	#A = [[1,1,8],[0,3,9]]
+	#A = [[1,2,5],[0,3,4]]
 	opt = Operator(acts=A)
 	opt.run()
-#opt.result()

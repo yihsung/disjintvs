@@ -1,6 +1,7 @@
 import disjintv1
 import random
 
+##########################################################
 
 class DisjIntvs():
 	def __init__(self, intvs=[]):
@@ -95,6 +96,7 @@ class DisjIntvs():
 		print(self.__str__())
 		return
 
+#----------------------------------------------------------
 
 class Operator():
 	def __init__(self, intvs=[], acts=[]):
@@ -103,16 +105,17 @@ class Operator():
 		self.acts = acts # maintian a set of actions
 
 	
-	def load(self): # load commands from a file
-		return
+	# for future expansion
+	#def load(self): # load commands from a file
+	#	return
 
 	
 	def gen_randtest(self):
-		TESTCASES = 10
-		UPPBDD = 20
+		TESTCMDS = 5 # number of test cases
+		UPPBDD = 20 # upper bound of the interval
 		temp = []
 
-		N = random.randint(1, TESTCASES) 
+		N = random.randint(1, TESTCMDS) 
 		for _ in range(N):
 			c = random.randint(0, 1)
 			a, b = random.randint(0, UPPBDD), random.randint(0, UPPBDD)
@@ -132,29 +135,42 @@ class Operator():
 				
 
 	def result(self):
-		print(self.intvs)
+		#print(self.intvs)
+
 		return self.intvs.__str__()
 
 
-# main
-ROUNDS = 1000
-c = 0
-for _ in range(ROUNDS):
-	A = [[1,1,5],[0,0,6]]
-	#A = [[1,1,8],[0,3,9],[1,4,7],[0,5,6]]
-	#A = [[1,2,5],[0,3,4]]
+##########################################################
 
-	opt = Operator(acts=A)
+# main section
+
+# random test
+ROUNDS = 10 # test rounds
+c = 0 # count
+
+for _ in range(ROUNDS):
+	# first operator
+	opt = Operator()
 	opt.gen_randtest()
 	opt.run()
 	#opt.result()
 
 	print("----")
-
-	A = opt.acts
-	opt1 = disjintv1.Operator(acts=A)
+	
+	# second operator
+	A = opt.acts # export the commands for operator1 to test
+	opt1 = disjintv1.Operator(acts=A) # second approach for justify the result
 	opt1.run()
 
 	c += opt.result()==opt1.result()
 
-print(ROUNDS - c)
+	print("-------------")
+
+print("different cases: %d\n" % (ROUNDS-c)) # print out number of different cases
+
+# test 1
+A = [[1,1,5],[0,2,3],[1,6,8],[0,4,7],[1,2,7]]
+
+opt = Operator(acts=A)
+opt.run()
+
