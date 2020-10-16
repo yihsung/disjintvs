@@ -67,16 +67,22 @@ class DisjIntvs():
 
 		# find the lower and upper index
 		i, j, n = self._find(1, a), self._find(0, b), len(self.intvs)
+		print(i, j)
 
 		if i > 0 and a <= self.intvs[i-1][1]:
 			i -= 1
 
 		if 0 < j < n and b < self.intvs[j][0]:
 			j -= 1
-
+		
+		print(i, j)
 		b1, a1 = min(self.intvs[i][1], a), max(self.intvs[j][0], b)
-		self.intvs = self.intvs[:i] + [[self.intvs[i][0], b1]] + [[a1, self.intvs[j][1]]] + self.intvs[j+1:]
 
+		print(b1, a1)
+		if a1 < self.intvs[j][1]:
+			self.intvs = self.intvs[:i] + [[self.intvs[i][0], b1]] + [[a1, self.intvs[j][1]]] + self.intvs[j+1:]
+		else:
+			self.intvs = self.intvs[:i] + [[self.intvs[i][0], b1]] + self.intvs[j+1:]
 		#print(self.intvs)
 		print(self.__str__())
 		return
@@ -107,7 +113,8 @@ class Operator():
 
 # main
 A = [[1,1,5],[1,6,8],[1,3,5],[1,5,6]]
-A = [[1,1,5],[0,2,3],[1,6,8],[0,4,7],[1,2,7]]
+A = [[1,1,8],[0,3,9]]
+A = [[1,2,5],[0,3,4]]
 opt = Operator(acts=A)
 opt.run()
 #opt.result()
