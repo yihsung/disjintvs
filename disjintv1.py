@@ -19,6 +19,9 @@ class DisjIntvs():
 	def add(self, a, b):
 		print("+", a, b)
 		
+		if a == b: # invalid interval, do nothing
+			return 
+
 		if not self.intvs: # no intvs stored
 			self.intvs = [a, b]
 			#print(self.intvs)
@@ -46,6 +49,9 @@ class DisjIntvs():
 	def remove(self, a, b):
 		print("-", a, b)
 		
+		if a == b: # invalid interval, do nothing
+			return 
+
 		if not self.intvs: # no intv stored
 			#print(self.intvs)
 			print(self.__str__())
@@ -91,11 +97,14 @@ class Operator():
 	def result(self):
 		print(self.intvs)
 
+		return self.intvs.__str__()
+
 
 # main
-A = [[1,1,5],[1,6,8],[1,3,5],[1,5,6]]
-A = [[1,1,8],[0,3,9]]
-A = [[1,2,5],[0,3,4]]
-opt = Operator(acts=A)
-opt.run()
+if __name__ == '__main__':
+	A = [[1,1,5],[1,6,8],[1,3,5],[1,5,6]]
+	A = [[1,1,8],[0,3,9]]
+	A = [[1,2,5],[0,3,4]]
+	opt = Operator(acts=A)
+	opt.run()
 #opt.result()

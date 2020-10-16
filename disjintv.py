@@ -1,3 +1,7 @@
+import disjintv1
+import random
+
+
 class DisjIntvs():
 	def __init__(self, intvs=[]):
 		# the intervals are kept in the format of [a, b]
@@ -33,10 +37,12 @@ class DisjIntvs():
 
 	def add(self, a, b):
 		print("+", a, b)
+
+		if a == b: # invalid interval, do nothing
+			return 
 		
 		if len(self.intvs) == 2: # no intvs stored
 			self.intvs = [self.intvs[0]] + [[a, b]] + [self.intvs[1]]
-			#print(self.intvs)
 			print(self.__str__())
 			return
 
@@ -50,9 +56,8 @@ class DisjIntvs():
 			j -= 1
 		
 		a1, b1 = min(self.intvs[i][0], a), max(self.intvs[j][1], b)
-		self.intvs = self.intvs[:i] + [[a1, b1]] + self.intvs[j+1:]
+		self.intvs[i:j+1] = [[a1, b1]]
 	
-		#print(self.intvs)
 		print(self.__str__())
 		return
 
@@ -60,8 +65,10 @@ class DisjIntvs():
 	def remove(self, a, b):
 		print("-", a, b)
 		
+		if a == b: # invalid interval, do nothing
+			return 
+
 		if len(self.intvs) == 2: # no intv stored
-			#print(self.intvs)
 			print(self.__str__())
 			return # do nothing
 
@@ -76,12 +83,15 @@ class DisjIntvs():
 		
 		b1, a1 = min(self.intvs[i][1], a), max(self.intvs[j][0], b)
 
-		if a1 < self.intvs[j][1]:
-			self.intvs = self.intvs[:i] + [[self.intvs[i][0], b1]] + [[a1, self.intvs[j][1]]] + self.intvs[j+1:]
+		if self.intvs[i][0] < b1 and a1 < self.intvs[j][1]:
+			self.intvs[i:j+1] = [[self.intvs[i][0], b1]] + [[a1, self.intvs[j][1]]]
+		elif self.intvs[i][0] < b1:
+			self.intvs[i:j+1] = [[self.intvs[i][0], b1]]
+		elif a1 < self.intvs[j][1]:
+			self.intvs[i:j+1] = [[a1, self.intvs[j][1]]]
 		else:
-			self.intvs = self.intvs[:i] + [[self.intvs[i][0], b1]] + self.intvs[j+1:]
+			self.intvs[i:j+1] = [] 
 		
-		#print(self.intvs)
 		print(self.__str__())
 		return
 
@@ -96,6 +106,22 @@ class Operator():
 	def load(self): # load commands from a file
 		return
 
+	
+	def gen_randtest(self):
+		TESTCASES = 10
+		UPPBDD = 20
+		temp = []
+
+		N = random.randint(1, TESTCASES) 
+		for _ in range(N):
+			c = random.randint(0, 1)
+			a, b = random.randint(0, UPPBDD), random.randint(0, UPPBDD)
+			if a > b:
+				a, b = b, a
+			temp.append([c, a, b])
+
+		self.acts = temp
+
 
 	def run(self):
 		for com, a, b in self.acts:
@@ -107,12 +133,28 @@ class Operator():
 
 	def result(self):
 		print(self.intvs)
+		return self.intvs.__str__()
 
 
 # main
-A = [[1,1,5],[1,6,8],[1,3,5],[1,5,6]]
-A = [[1,1,8],[0,3,9]]
-A = [[1,2,5],[0,3,4]]
-opt = Operator(acts=A)
-opt.run()
-#opt.result()
+ROUNDS = 1000
+c = 0
+for _ in range(ROUNDS):
+	A = [[1,1,5],[0,0,6]]
+	#A = [[1,1,8],[0,3,9],[1,4,7],[0,5,6]]
+	#A = [[1,2,5],[0,3,4]]
+
+	opt = Operator(acts=A)
+	opt.gen_randtest()
+	opt.run()
+	#opt.result()
+
+	print("----")
+
+	A = opt.acts
+	opt1 = disjintv1.Operator(acts=A)
+	opt1.run()
+
+	c += opt.result()==opt1.result()
+
+print(ROUNDS - c)
