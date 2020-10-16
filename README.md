@@ -1,5 +1,13 @@
 # Disjoint Intervals
 
+### Format of Intervals
+
+The format of interval `[a,b]` with `a <= b`. Remark that `[a,a]` is an empty set.
+
+----
+
+### Classes 
+
 There are two classes in `disjintv.py`:
 
 * `class DisjIntvs()`: this is the main class maintains a set of disjoint intervals. It has two methods:
